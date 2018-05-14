@@ -2,6 +2,9 @@
   "name": "my-git-tools",
   "version": "1.0.0",
   "main": "./lib/index.js",
+  "bin": {
+    "my-git-tools": "lib/index.js"
+  },
   "author": "Dhaouadi Nourallah <contact.nourallah@gmail.com>",
   "license": "MIT",
   "files": [
@@ -10,9 +13,6 @@
     "scripts",
     "templates"
   ],
-  "bin": {
-    "my-git-tools": "bin/my-git-tools"
-  },
   "scripts": {
     "lint": "standard --verbose | snazzy",
     "test": "cross-env NODE_ENV=test nyc mocha test",

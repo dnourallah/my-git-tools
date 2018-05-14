@@ -1,0 +1,97 @@
+{
+  "name": "my-git-tools",
+  "version": "1.0.0",
+  "main": "./lib/index.js",
+  "author": "Dhaouadi Nourallah <contact.nourallah@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "bin",
+    "lib",
+    "scripts",
+    "templates"
+  ],
+  "bin": {
+    "my-git-tools": "bin/my-git-tools"
+  },
+  "scripts": {
+    "lint": "standard --verbose | snazzy",
+    "test": "cross-env NODE_ENV=test nyc mocha test",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "clean": "rm -rf lib test/coverage",
+    "build": "babel src -d lib",
+    "preversion": "npm run lint && npm run test",
+    "version": "babel-node src/index.js --package && git add CHANGELOG.md",
+    "prepublish": "npm run clean && npm run build",
+    "postpublish": "npm run clean",
+    "generate-test-data": "cross-env NODE_ENV=test babel-node scripts/generate-test-data.js"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "commander": "^2.9.0",
+    "fs-extra": "^5.0.0",
+    "handlebars": "^4.0.11",
+    "parse-github-url": "^1.0.1",
+    "semver": "^5.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.0.0",
+    "babel-eslint": "^8.0.1",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-plugin-rewire": "^1.1.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babel-template": "^6.2.0",
+    "babel-types": "^6.2.0",
+    "chai": "^4.1.2",
+    "codecov": "^3.0.0",
+    "cross-env": "^5.1.0",
+    "mocha": "^5.0.0",
+    "nyc": "^11.2.1",
+    "snazzy": "^7.0.0",
+    "standard": "^10.0.3"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "stage-3"
+    ],
+    "env": {
+      "test": {
+        "plugins": [
+          "istanbul",
+          "rewire"
+        ]
+      }
+    }
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "module",
+      "allowImportExportEverywhere": false,
+      "codeFrame": false
+    },
+    "ignore": [
+      "test/data/"
+    ]
+  },
+  "nyc": {
+    "all": true,
+    "include": "src",
+    "exclude": "src/index.js",
+    "sourceMap": false,
+    "instrument": false,
+    "report-dir": "./test/coverage",
+    "temp-directory": "./test/coverage/.nyc_output",
+    "require": [
+      "babel-polyfill",
+      "babel-register"
+    ],
+    "reporter": [
+      "text",
+      "html"
+    ]
+  }
+}

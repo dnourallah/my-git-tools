@@ -1,0 +1,9 @@
+# My Project
+/lib
+/test/coverage
+
+/.idea
+/node_modules
+*.log
+yarn.lock
+*.tgz

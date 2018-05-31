@@ -8,9 +8,7 @@
   "author": "Dhaouadi Nourallah <contact.nourallah@gmail.com>",
   "license": "MIT",
   "files": [
-    "bin",
     "lib",
-    "scripts",
     "templates"
   ],
   "scripts": {
